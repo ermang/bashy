@@ -12,7 +12,7 @@ TOPIC='campaing_topic'
 FROM_BEGINNING='--from-beginning'
 KAFKA_PRODUCER_TAIL='--bootstrap-server localhost:9092'
 
-echo "\n\n"
+printf "\n"
 echo 'kafka consumer started for topic '$TOPIC
 
 SCRIPT=$KAFKA_PATH$KAFKA_CONSUMER' --topic '$TOPIC' '$FROM_BEGINNING' '$KAFKA_PRODUCER_TAIL
@@ -22,7 +22,7 @@ SCRIPT=$KAFKA_PATH$KAFKA_CONSUMER' --topic '$TOPIC' '$FROM_BEGINNING' '$KAFKA_PR
 #KAFKA_PRODUCER=$KAFKA_PATH
 
 $SCRIPT | while read my_event; do
-                                echo "$my_event"
+                                echo 'received event => ' "$my_event"
                                 my_key=$(echo "$my_event" | jq -r .customerNo)
                                 echo "$my_key"
                                 redis-cli incr "$my_key"

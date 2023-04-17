@@ -22,10 +22,10 @@ SCRIPT=$KAFKA_PATH$KAFKA_CONSUMER' --topic '$TOPIC' '$FROM_BEGINNING' '$KAFKA_PR
 #KAFKA_PRODUCER=$KAFKA_PATH
 
 $SCRIPT | while read my_event; do
-                                echo $my_event
-                                my_key=$(echo $my_event | jq -r .customerNo)
-                                echo $my_key
-                                redis-cli incr $my_key
+                                echo "$my_event"
+                                my_key=$(echo "$my_event" | jq -r .customerNo)
+                                echo "$my_key"
+                                redis-cli incr "$my_key"
                                done
 
 

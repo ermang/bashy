@@ -13,7 +13,7 @@ FROM_BEGINNING='--from-beginning'
 KAFKA_PRODUCER_TAIL='--bootstrap-server localhost:9092'
 
 printf "\n"
-echo 'kafka consumer started for topic '$TOPIC
+printf "kafka consumer started for topic %s \n\n" "$TOPIC"
 
 SCRIPT=$KAFKA_PATH$KAFKA_CONSUMER' --topic '$TOPIC' '$FROM_BEGINNING' '$KAFKA_PRODUCER_TAIL
 

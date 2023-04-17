@@ -24,8 +24,13 @@ SCRIPT=$KAFKA_PATH$KAFKA_CONSUMER' --topic '$TOPIC' '$FROM_BEGINNING' '$KAFKA_PR
 $SCRIPT | while read my_event; do
                                 echo 'received event => ' "$my_event"
                                 my_key=$(echo "$my_event" | jq -r .customerNo)
-                                echo "$my_key"
-                                redis-cli incr "$my_key"
+                                #echo "$my_key"
+                                redis-cli incr "$my_key" 1> /dev/null
+                                my_value=$(redis-cli get "$my_key")
+                                #echo "$my_value"
+                                if [[ "$my_value" -eq 5 ]]; then
+                                 echo "Customer with customerNo $my_key received award"
+                                fi
                                done
 
 
